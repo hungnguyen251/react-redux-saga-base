@@ -1,4 +1,4 @@
-import { Button, Checkbox, FormControlLabel, Grid, Link, Paper, TextField, Typography } from '@mui/material';
+import { Button, Checkbox, CircularProgress, FormControlLabel, Grid, Link, Paper, TextField, Typography } from '@mui/material';
 import {  useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { authActions, selectCurrentUser } from '../authSlice';
@@ -9,6 +9,7 @@ import { useAppSelector } from 'app/hooks';
 export default function LoginPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const isLogging = useAppSelector(state => state.auth.logging);
 
   const {
     control,
@@ -96,7 +97,9 @@ useEffect(() => {
           }
           label="Remember me"
          />
-        <Button type='submit' color='primary' variant="contained" sx={styles.btnStyle} fullWidth onClick={handleSubmit(handleLogin)}>Sign in</Button>
+        <Button type='submit' color='primary' variant="contained" sx={styles.btnStyle} fullWidth onClick={handleSubmit(handleLogin)}>
+          {isLogging && <CircularProgress size={20} color='secondary'/>} Sign in
+        </Button>
         <Typography >
           <Link href="#" >
             Forgot password ?
